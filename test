@@ -1,14 +1,23 @@
 #!/bin/bash
 
-NUMBER_OF_TESTS=4
+ST_SRC="\033[34m"
+ST_PASS="\033[32m"
+ST_FAIL="\033[31m"
+ST_RST="\033[0m"
 
-for i in $(seq 1 $NUMBER_OF_TESTS);
+sources=$(ls *.mod)
+
+for source in $sources;
 do
-	echo "---- Running test $i ----"
+	echo -e "---- Running test for $ST_SRC $source $ST_RST ----"
 
-	if [ ! -f "tests/test$i.mod.expected" ]; then 
-		echo "File 'tests/test$i.mod.expected' not found."
-		echo "---- Test $i skipped ----"
+	expected="tests/$source.expected"
+	actual="tests/$source.actual"
+
+	if [ ! -f $expected ]; then 
+		echo "File '$expected' not found."
+		echo -e "---- Test $ST_SRC $source $ST_RST skipped ----"
+		echo; echo; echo;
 		continue
 	fi
 
@@ -17,14 +26,14 @@ do
 		exit $?
 	fi
 
-	./modula < "test$i.mod" > "tests/test$i.mod.actual"
+	./modula < $source > $actual
 
-	diff --color "tests/test$i.mod.actual" "tests/test$i.mod.expected"
+	diff --color $actual $expected 
 
 	if [ $? -eq 0 ]; then 
-		echo "---- Test $i passed ----"
+		echo -e "---- Test $ST_SRC $source $ST_PASS passed $ST_RST----"
 	else
-		echo "---- Test $i failed ----"
+		echo -e "---- Test $ST_SRC $source $ST_FAIL failed $ST_RST----"
 	fi
-	echo
+	echo; echo; echo;
 done

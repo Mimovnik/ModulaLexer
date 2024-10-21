@@ -12,26 +12,21 @@ make
 ./test
 ```
 
-## Add tests
+## Add custom tests
 
-Add the new testX.mod
+Add a new source file
 
-eg.
+eg. **new**.mod
 ```bash
-cp test4.mod test5.mod
-vim test5.mod # add a new edge case
+cp test1.mod new.mod
+vim new.mod # add a new edge case
 ```
 
-Add testX.mod.expected to tests directory
+Add expected output to tests directory
 
-eg.
+tests/**new**.mod.expected
 ```bash
-cp tests/test1.mod.expected tests/test5.mod.expected
-vim tests/test5.mod.expected
+cp tests/test1.mod.expected tests/new.mod.expected
+vim tests/new.mod.expected
 ```
 
-Edit the number of test in `test` script
-
-```bash
-NUMBER_OF_TESTS=5
-```
