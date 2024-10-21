@@ -8,8 +8,15 @@ make
 
 ## Test (also compiles)
 
+Test all files with .mod extension
 ```bash
 ./test
+```
+
+Test specific files
+
+```bash
+./test source1.mod source2.mod
 ```
 
 ## Add custom tests
