@@ -71,7 +71,7 @@ DOWNTO return process_token(yytext, "KW_DOWNTO", "", KW_DOWNTO);
 [1-9][[:digit:]]* return process_token(yytext, "INTEGER_CONST", yytext, INTEGER_CONST);
  
  /* G. wykrywanie liczb rzeczywistych bez znaku */
-[1-9][[:digit:]]*\.[[:digit:]]*(E[\-+]?[[:digit:]])? return process_token(yytext, "FLOAT_CONST", yytext, REAL_CONST);
+[[:digit:]]+\.[[:digit:]]*(E[\-+]?[[:digit:]])? return process_token(yytext, "FLOAT_CONST", yytext, REAL_CONST);
  
  /* H. wykrywanie stałych tekstowych (napisów) w cudzysłowach bez użycia mechanizmu warunków początkowych */
 \"[^"\n]*\" return process_token(yytext, "STRING_CONST", yytext, STRING_CONST);
