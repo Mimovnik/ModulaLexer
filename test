@@ -38,7 +38,10 @@ do
 		exit $?
 	fi
 
-	./modula < $source > $actual
+	tmp="output.tmp"
+	./modula < $source > $tmp
+	tail -n +4 $tmp > $actual
+	rm $tmp
 
 	diff --color $actual $expected 
 
