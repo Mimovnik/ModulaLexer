@@ -5,7 +5,19 @@ ST_PASS="\033[32m"
 ST_FAIL="\033[31m"
 ST_RST="\033[0m"
 
-sources=$(ls *.mod)
+if [ $1 == "--help" ]; then
+	echo "usage:"
+	echo "./test [sources]"
+	echo "or to run all files ending with .mod"
+	echo "./test"
+	exit 0;
+fi
+
+if [ -z $1 ]; then
+	sources=$(ls *.mod)
+else
+	sources=$@
+fi
 
 for source in $sources;
 do
