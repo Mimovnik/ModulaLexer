@@ -4,31 +4,44 @@ ST_SRC="\033[34m"
 ST_PASS="\033[32m"
 ST_FAIL="\033[31m"
 ST_RST="\033[0m"
+EXTENSION=".mod"
 
 if [[ $1 == "--help" ]]; then
 	echo "usage:"
-	echo "./test [sources]"
-	echo "or to run all files ending with .mod"
-	echo "./test"
+  echo "./test lexer|parser [sources]"
+  echo 
+  echo "To run all tests in analyzer's directory (eg. tests/lexer)"
+  echo "./test lexer|parser"
 	exit 0;
 fi
 
-if [ -z $1 ]; then
-	sources=$(ls *.mod)
+if [ "$1" = "lexer" ]; then
+  analyzer="lexer"
+elif [ "$1" = "parser" ]; then
+  analyzer="parser"
+else
+  echo "Please, specify whether to test lexer or parser"
+	echo "usage:"
+  echo "./test lexer|parser [sources]"
+fi
+
+if [ -z $2 ]; then
+	sources=$(ls tests/$analyzer/*$EXTENSION)
 else
 	sources=$@
 fi
 
 for source in $sources;
 do
+  basename=$(basename $source $EXTENSION)
 	echo -e "---- Running test for $ST_SRC $source $ST_RST ----"
 
-	expected="tests/$source.expected"
-	actual="tests/$source.actual"
+	expected="tests/$analyzer/expected/$basename.expected"
+	actual="tests/$analyzer/actual/$basename.actual"
 
 	if [ ! -f $expected ]; then 
 		echo "File '$expected' not found."
-		echo -e "---- Test $ST_SRC $source $ST_RST skipped ----"
+		echo -e "---- Test for $ST_SRC $source $ST_RST skipped ----"
 		echo; echo; echo;
 		continue
 	fi
@@ -46,9 +59,9 @@ do
 	diff --color $actual $expected 
 
 	if [ $? -eq 0 ]; then 
-		echo -e "---- Test $ST_SRC $source $ST_PASS passed $ST_RST----"
+		echo -e "---- Test for $ST_SRC $source $ST_PASS passed $ST_RST----"
 	else
-		echo -e "---- Test $ST_SRC $source $ST_FAIL failed $ST_RST----"
+		echo -e "---- Test for $ST_SRC $source $ST_FAIL failed $ST_RST----"
 	fi
 	echo; echo; echo;
 done

@@ -40,6 +40,7 @@ MOD return process_token(yytext, "KW_MOD", "", KW_MOD);
 MODULE return process_token(yytext, "KW_MODULE", "", KW_MODULE);
 NOT return process_token(yytext, "KW_NOT", "", KW_NOT);
 OR return process_token(yytext, "KW_OR", "", KW_OR);
+PROCEDURE return process_token(yytext, "KW_PROCEDURE", "", KW_PROCEDURE);
 THEN return process_token(yytext, "KW_THEN", "", KW_THEN);
 TYPE return process_token(yytext, "KW_TYPE", "", KW_TYPE);
 TO return process_token(yytext, "KW_TO", "", KW_TO);
@@ -68,7 +69,7 @@ DOWNTO return process_token(yytext, "KW_DOWNTO", "", KW_DOWNTO);
 [[:alpha:]][[:alpha:][:digit:]]* return process_token(yytext, "IDENT", yytext, IDENT);
  
  /* F. wykrywanie liczb całkowitych bez znaku */
-[1-9][[:digit:]]* return process_token(yytext, "INTEGER_CONST", yytext, INTEGER_CONST);
+[[:digit:]]+ return process_token(yytext, "INTEGER_CONST", yytext, INTEGER_CONST);
  
  /* G. wykrywanie liczb rzeczywistych bez znaku */
 [[:digit:]]+\.[[:digit:]]*(E[\-+]?[[:digit:]])? return process_token(yytext, "FLOAT_CONST", yytext, REAL_CONST);
