@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 ST_SRC="\033[34m"
 ST_PASS="\033[32m"

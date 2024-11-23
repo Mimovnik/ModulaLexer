@@ -85,12 +85,10 @@ DOWNTO return process_token(yytext, "KW_DOWNTO", "", KW_DOWNTO);
  /* K. wykrywanie napisów w cudzysłowach z użyciem warunków początkowych */
 <INITIAL>\" { BEGIN(ST_DOUBLE_QUOTE); double_quote_start = yylineno; yymore(); }
 <ST_DOUBLE_QUOTE>[^"\n]*\" { BEGIN(INITIAL); return process_token(yytext, "STRING_CONST", yytext, STRING_CONST); }
-<ST_DOUBLE_QUOTE>[^"\n]*\n { printf("Double quotes opened in line %d not closed\n", double_quote_start); yyterminate(); }
  
  /* L. wykrywanie stałych znakowych w apostrofach z użyciem warunków początkowych */
 <INITIAL>' { BEGIN(ST_SINGLE_QUOTE); single_quote_start = yylineno; yymore(); }
 <ST_SINGLE_QUOTE>[^'\n]' { BEGIN(INITIAL); return process_token(yytext, "CHAR_CONST", yytext, CHAR_CONST); }
-<ST_SINGLE_QUOTE>\n|([^'\n]{2,}') { printf("Single quote opened in line %d not closed\n", single_quote_start); yyterminate(); }
  
  /* M. usuwanie komentarzy wielowierszowych z użyciem warunków początkowych */
 <INITIAL>"(*" { BEGIN(ST_COMMENT); comment_start = yylineno; }
@@ -100,11 +98,19 @@ DOWNTO return process_token(yytext, "KW_DOWNTO", "", KW_DOWNTO);
  /* N. znajdowanie znaków zamknięcia komentarza przy braku jego rozpoczęcia z użyciem warunków początkowych */
 <INITIAL>"*)" printf("Comment closed in line %d when none opened\n", yylineno);
 
- /* O. wykrywanie niezamkniętego komentarza ze wskazaniem wiersza jego rozpoczęcia z użyciem warunków początkowych */
-<ST_COMMENT><<EOF>> { printf("Comment opened in line %d not closed\n", comment_start); yyterminate(); }
 
 %%
 int yywrap() {
+  if (YYSTATE == ST_DOUBLE_QUOTE){
+    printf("Double quotes opened in line %d not closed\n", double_quote_start);
+  }
+  if (YYSTATE == ST_SINGLE_QUOTE){
+    printf("Single quote opened in line %d not closed\n", single_quote_start);
+  }
+ /* O. wykrywanie niezamkniętego komentarza ze wskazaniem wiersza jego rozpoczęcia z użyciem warunków początkowych */
+  if (YYSTATE == ST_COMMENT){
+    printf("Comment opened in line %d not closed\n", comment_start);
+  }
   return 1; /* konieczne!!! */
 }
 

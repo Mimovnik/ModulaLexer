@@ -169,4 +169,11 @@ WriteLn             IDENT           WriteLn
 "Aha!"              STRING_CONST    "Aha!"
 )                   )               
 |                   |               
+'A,'                  CHAR_CONST      ,'
+a                   IDENT           a
+': Writeln("Yes?") (* missing second single quote *)
+  ELSE (* This comment is unfinished
+       Writeln("O!")
+  END
+END test.
 Single quote opened in line 45 not closed

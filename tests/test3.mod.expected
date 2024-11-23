@@ -103,4 +103,32 @@ WriteString         IDENT           WriteString
 ELSE                KW_ELSE         
 WriteString         IDENT           WriteString
 (                   (               
+"No way!) (* missing second double quote *)
+  END;
+  WriteLn;
+  i := 1;
+  WHILE i < 5 DO
+       WriteLn(i); i := i + 1
+  END;
+  REPEAT
+       WriteLn(i); i := i - 1
+  UNTIL i = 1;
+  LOOP *) (* closing a comment without opening it *)
+       WriteLn("    STRING_CONST           WriteLn("
+Spam                IDENT           Spam
+")
+  END;
+  CASE CHR(FromAscii+16) OF
+       '0': WriteLn(STRING_CONST           '0': WriteLn("
+Aha                 IDENT           Aha
+!")
+     | 'A','a': WritSTRING_CONST         | 'A','a': Writeln("
+Yes                 IDENT           Yes
+?")
+  ELSE (* This comment is unfinished
+       Writeln("    STRING_CONST           Writeln("
+O                   IDENT           O
+!")
+  END
+END test.
 Double quotes opened in line 30 not closed
