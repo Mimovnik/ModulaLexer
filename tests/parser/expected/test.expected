@@ -151,6 +151,7 @@ CHR                 IDENT           CHR
 (                   (               
 i                   IDENT           i
 )                   )               
+===== FOUND: PROCEDURE_CALL 'CHR'=====
 )                   )               
 ===== FOUND: PROCEDURE_CALL 'Write'=====
 ;                   ;               
@@ -282,6 +283,7 @@ FromAscii           IDENT           FromAscii
 +                   +               
 16                  INTEGER_CONST   16
 )                   )               
+===== FOUND: PROCEDURE_CALL 'CHR'=====
 OF                  KW_OF           
 '0'                 CHAR_CONST      '0'
 :                   :               

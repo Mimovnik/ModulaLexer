@@ -11,5 +11,6 @@ LEX=flex
 %.c: %.l %.tab.h
 	$(LEX) -t $< > $@
 
-modula: modula.y modula.l
+lexer: lexer.y lexer.l
+parser: parser.y parser.l
 

@@ -25,6 +25,13 @@ else
   echo "./test lexer|parser [sources]"
 fi
 
+echo "---- Building $analyzer ----"
+echo;
+make -s $analyzer
+if [ $? -ne 0 ]; then 
+  exit $?
+fi
+
 if [ -z $2 ]; then
 	sources=$(ls tests/$analyzer/*$EXTENSION)
 else
@@ -46,13 +53,8 @@ do
 		continue
 	fi
 
-	make -s
-	if [ $? -ne 0 ]; then 
-		exit $?
-	fi
-
 	tmp="output.tmp"
-	./modula < $source > $tmp
+	./$analyzer < $source > $tmp
 	tail -n +4 $tmp > $actual
 	rm $tmp
 

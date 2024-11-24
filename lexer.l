@@ -3,7 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 #define MAX_STR_LEN	100
-#include "modula.tab.h"
+#include "lexer.tab.h"
 int process_token(const char *text, const char *TokenType,
 		  const char *TokenVal, const int TokenID); 
 char *strnncpy(char *dst, const char *src, const int n);
